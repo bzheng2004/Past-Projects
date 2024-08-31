@@ -30,7 +30,22 @@ public class JavaExercises {
      *  Assumes array is nonempty. */
     public static int findMinMax(int[] array) {
         // TODO: Fill in this function.
-        return 0;
+        int mx = array[0];
+        int nx = array[0];
+        int keeperMin = 0;
+        int keeperMax = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] < mx) {
+                mx = array[i];
+                keeperMin = i;
+            }
+        for (int j = 0; j < array.length; j++) {
+            if (array[j] > nx) {
+                nx = array[j];
+                keeperMax = j;
+            }
+        }
+        return Math.abs(keeperMin - keeperMax);
     }
 
     /**
@@ -47,6 +62,7 @@ public class JavaExercises {
 
     private static List<Integer> hailstoneHelper(int x, List<Integer> list) {
         // TODO: Fill in this function.
+        
         return null;
     }
 
