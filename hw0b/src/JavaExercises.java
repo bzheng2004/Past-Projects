@@ -6,7 +6,7 @@ public class JavaExercises {
     /** Returns an array [1, 2, 3, 4, 5, 6] */
     public static int[] makeDice() {
         // TODO: Fill in this function.
-        return null;
+        return new int[]{1, 2, 3, 4, 5, 6};
     }
 
     /** Returns the order depending on the customer.
@@ -15,6 +15,14 @@ public class JavaExercises {
      *  In any other case, return an empty String[] of size 3. */
     public static String[] takeOrder(String customer) {
         // TODO: Fill in this function.
+        String[] ergunOrder = new String[] {"beyti", "pizza", "hamburger", "tea"};
+        String[] erikOrder = new String[] {"sushi", "pasta", "avocado", "coffee"};
+        if (customer.equals("Ergun")) {
+            return ergunOrder;
+        }
+        if (customer.equals("Erik")) {
+            return erikOrder;
+        }
         return null;
     }
 
