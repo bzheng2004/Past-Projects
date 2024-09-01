@@ -23,7 +23,7 @@ public class JavaExercises {
         if (customer.equals("Erik")) {
             return erikOrder;
         }
-        return null;
+        return new String[3];
     }
 
     /** Returns the positive difference between the maximum element and minimum element of the given array.
@@ -39,6 +39,7 @@ public class JavaExercises {
                 mx = array[i];
                 keeperMin = i;
             }
+        }
         for (int j = 0; j < array.length; j++) {
             if (array[j] > nx) {
                 nx = array[j];
@@ -61,8 +62,25 @@ public class JavaExercises {
     }
 
     private static List<Integer> hailstoneHelper(int x, List<Integer> list) {
-        // TODO: Fill in this function.
-        
+        // TODO: Fill in this function
+        int counter = 0;
+        while (x != 1) {
+            if (x % 2 == 0) {
+                x = x/2;
+                counter = x;
+                list.add(counter);
+            }
+            if (x % 2 != 0) {
+                x = x * 3 + 1;
+                counter = x;
+                list.add(counter);
+            }
+        if (x == 1) {
+            list.add(1);
+            return list;
+        }
+        }
+
         return null;
     }
 
