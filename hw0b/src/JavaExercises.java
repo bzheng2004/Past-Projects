@@ -32,21 +32,17 @@ public class JavaExercises {
         // TODO: Fill in this function.
         int mx = array[0];
         int nx = array[0];
-        int keeperMin = 0;
-        int keeperMax = 0;
         for (int i = 0; i < array.length; i++) {
             if (array[i] < mx) {
                 mx = array[i];
-                keeperMin = i;
             }
         }
         for (int j = 0; j < array.length; j++) {
             if (array[j] > nx) {
                 nx = array[j];
-                keeperMax = j;
             }
         }
-        return Math.abs(keeperMin - keeperMax);
+        return Math.abs(mx - nx);
     }
 
     /**
