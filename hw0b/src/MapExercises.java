@@ -35,6 +35,15 @@ public class MapExercises {
     /** Returns a map of the counts of all words that appear in a list of words. */
     public static Map<String, Integer> countWords(List<String> words) {
         // TODO: Fill in this function.
-        return null;
+        Map<String, Integer> wCount = new HashMap<>();
+        for (String w : words) {
+            if (wCount.containsKey(w)) {
+                int currentnum = wCount.get(w);
+                wCount.put(w, currentnum + 1);
+            } else {
+                wCount.put(w, 1);
+            }
+        }
+        return wCount;
     }
 }
