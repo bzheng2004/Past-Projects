@@ -15,6 +15,7 @@ public class MapExercises {
      */
     public static Map<Integer, Integer> squares(List<Integer> nums) {
         // TODO: Fill in this function.
+
         return null;
     }
 
