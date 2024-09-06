@@ -165,6 +165,20 @@ public class Model {
         int targetY = y;
 
         // TODO: Tasks 5, 6, and 10. Fill in this function.
+        for (int i = y + 1; i < 4; i++) {
+            if (tile(x, i) != null && !tile(x, i).wasMerged()) {
+                if (tile(x, i).value() == myValue) {
+                    board.move(x, i, currTile);
+                }
+                break;
+            }
+            if (tile(x, i) == null) {
+                targetY = i;
+            }
+        }
+        if (targetY != y && !currTile.wasMerged()) {
+            board.move(x, targetY, currTile);
+        }
     }
 
     /** Handles the movements of the tilt in column x of board B
