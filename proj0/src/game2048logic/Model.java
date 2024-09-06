@@ -125,6 +125,23 @@ public class Model {
      */
     public boolean atLeastOneMoveExists() {
         // TODO: Task 3. Fill in this function.
+        if (emptySpaceExists())  {
+            return true;
+        }
+        for (int x = 0; x < 4; x++) {
+            for (int y = 0; y < 4; y++) {
+                if (x < 3) {
+                    if (tile(x, y).value() == tile(x + 1, y).value()) {
+                        return true;
+                    }
+                }
+                if (y < 3) {
+                    if (tile(x, y).value() == tile(x, y + 1).value()) {
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
