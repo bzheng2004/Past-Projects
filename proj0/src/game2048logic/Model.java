@@ -86,8 +86,8 @@ public class Model {
      * */
     public boolean emptySpaceExists() {
         // TODO: Task 1. Fill in this function.
-        for (int x = 0; x < 4; x++) {
-            for (int y = 0; y < 4; y++) {
+        for (int x = 0; x < size(); x++) {
+            for (int y = 0; y < size(); y++) {
                 if (tile(x, y) == null) {
                     return true;
                 }
@@ -103,8 +103,8 @@ public class Model {
      */
     public boolean maxTileExists() {
         // TODO: Task 2. Fill in this function.
-        for (int x = 0; x < 4; x++) {
-            for (int y = 0; y < 4; y++) {
+        for (int x = 0; x < size(); x++) {
+            for (int y = 0; y < size(); y++) {
                 if (tile(x, y) != null) {
                     if (tile(x, y).value() == MAX_PIECE)  {
                         return true;
@@ -126,14 +126,14 @@ public class Model {
         if (emptySpaceExists())  {
             return true;
         }
-        for (int x = 0; x < 4; x++) {
-            for (int y = 0; y < 4; y++) {
-                if (x < 3) {
+        for (int x = 0; x < size(); x++) {
+            for (int y = 0; y < size(); y++) {
+                if (x < size() - 1) {
                     if (tile(x, y).value() == tile(x + 1, y).value()) {
                         return true;
                     }
                 }
-                if (y < 3) {
+                if (y < size() - 1) {
                     if (tile(x, y).value() == tile(x, y + 1).value()) {
                         return true;
                     }
@@ -163,7 +163,7 @@ public class Model {
         int targetY = y;
 
         // TODO: Tasks 5, 6, and 10. Fill in this function.
-        for (int i = y + 1; i < 4; i++) {
+        for (int i = y + 1; i < size(); i++) {
             Tile upperTile = tile(x, i);
             if (upperTile == null) {
                 targetY = i;
@@ -190,7 +190,7 @@ public class Model {
      * */
     public void tiltColumn(int x) {
         // TODO: Task 7. Fill in this function.
-        for (int i = 2; i >= 0; i--) {
+        for (int i = size() - 1; i >= 0; i--) {
             if (tile(x, i) != null) {
                 moveTileUpAsFarAsPossible(x, i);
             }
@@ -200,7 +200,7 @@ public class Model {
     public void tilt(Side side) {
         // TODO: Tasks 8 and 9. Fill in this function.
         board.setViewingPerspective(side);
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < size(); i++) {
             tiltColumn(i);
         }
         board.setViewingPerspective(Side.NORTH);
