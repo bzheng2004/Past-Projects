@@ -166,9 +166,12 @@ public class Model {
 
         // TODO: Tasks 5, 6, and 10. Fill in this function.
         for (int i = y + 1; i < 4; i++) {
-            if (tile(x, i) != null && !tile(x, i).wasMerged()) {
-                if (tile(x, i).value() == myValue) {
+            Tile upperTile = tile(x, i);
+            if (upperTile != null) {
+                if (upperTile.value() == myValue && !upperTile.wasMerged()) {
                     board.move(x, i, currTile);
+                    currTile.wasMerged();
+                    break;
                 }
                 break;
             }
@@ -188,10 +191,18 @@ public class Model {
      * */
     public void tiltColumn(int x) {
         // TODO: Task 7. Fill in this function.
+        for (int i = 2; i >= 0; i--) {
+            if (tile(x, i) != null) {
+                moveTileUpAsFarAsPossible(x, i);
+            }
+        }
     }
 
     public void tilt(Side side) {
         // TODO: Tasks 8 and 9. Fill in this function.
+        for (int i = 0; i < 4; i++) {
+            tiltColumn(i);
+        }
     }
 
     /** Tilts every column of the board toward SIDE.
