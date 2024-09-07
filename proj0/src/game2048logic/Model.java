@@ -109,8 +109,6 @@ public class Model {
                     if (tile(x, y).value() == MAX_PIECE)  {
                         return true;
                     }
-                } else {
-                    continue;
                 }
             }
         }
@@ -167,16 +165,17 @@ public class Model {
         // TODO: Tasks 5, 6, and 10. Fill in this function.
         for (int i = y + 1; i < 4; i++) {
             Tile upperTile = tile(x, i);
+            if (upperTile == null) {
+                targetY = i;
+            }
             if (upperTile != null) {
                 if (upperTile.value() == myValue && !upperTile.wasMerged()) {
                     board.move(x, i, currTile);
                     currTile.wasMerged();
+                    score += 2 * myValue;
                     break;
                 }
                 break;
-            }
-            if (tile(x, i) == null) {
-                targetY = i;
             }
         }
         if (targetY != y && !currTile.wasMerged()) {
@@ -200,9 +199,11 @@ public class Model {
 
     public void tilt(Side side) {
         // TODO: Tasks 8 and 9. Fill in this function.
+        board.setViewingPerspective(side);
         for (int i = 0; i < 4; i++) {
             tiltColumn(i);
         }
+        board.setViewingPerspective(Side.NORTH);
     }
 
     /** Tilts every column of the board toward SIDE.
