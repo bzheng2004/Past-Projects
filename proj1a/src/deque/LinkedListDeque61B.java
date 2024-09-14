@@ -56,7 +56,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
     public List<T> toList() {
         List<T> outcome = new ArrayList<>();
         Node now = sentinel.next;
-        while(now != sentinel) {
+        while (now != sentinel) {
             outcome.add(now.item);
             now = now.next;
         }
@@ -65,31 +65,72 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
 
     @Override
     public boolean isEmpty() {
+        if (size == 0) {
+            return true;
+        }
         return false;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public T removeFirst() {
-        return null;
+        if (size == 0) {
+            return null;
+        }
+        Node first = sentinel.next;
+        sentinel.next = first.next;
+        first.next.prev = sentinel;
+        size--;
+        return first.item;
     }
 
     @Override
     public T removeLast() {
-        return null;
+        if (size == 0) {
+            return null;
+        }
+        Node last = sentinel.prev;
+        sentinel.prev = last.prev;
+        last.prev.next = sentinel;
+        size--;
+        return last.item;
     }
 
     @Override
     public T get(int index) {
-        return null;
+        if (index < 0) {
+            return null;
+        }
+        if (index > size) {
+            return null;
+        }
+        int i = 0;
+        Node now = sentinel.next;
+        while (i < index) {
+            now = now.next;
+            i++;
+        }
+        return now.item;
     }
 
     @Override
     public T getRecursive(int index) {
-        return null;
+        if (index < 0) {
+            return null;
+        }
+        if (index > size) {
+            return null;
+        }
+        if (index == 0) {
+            return sentinel.next.item;
+        }
+        sentinel = sentinel.next;
+        T result = getRecursive(index - 1);
+        sentinel = sentinel.prev;
+        return result;
     }
 }
