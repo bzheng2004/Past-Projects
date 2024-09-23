@@ -36,12 +36,21 @@ public class MaxArrayDeque61BTest {
     }
 
     @Test
-    public void maxDifferentComparator() {
+    public void maxDefaultComparator() {
         MaxArrayDeque61B<Integer> m = new MaxArrayDeque61B<Integer>(Comparator.naturalOrder());
         m.addFirst(1);
         m.addFirst(3);
         m.addFirst(5);
         assertThat(m.max()).isEqualTo(5);
+    }
+
+    @Test
+    public void maxDifferentComparator() {
+        MaxArrayDeque61B<Integer> m = new MaxArrayDeque61B<Integer>(Comparator.naturalOrder());
+        m.addFirst(1);
+        m.addFirst(3);
+        m.addFirst(5);
+        assertThat(m.max(Comparator.naturalOrder())).isEqualTo(5);
     }
 
 }
