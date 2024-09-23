@@ -71,7 +71,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
 
     @Override
     public String toString() {
-        StringBuilder returnSB = new StringBuilder("{");
+        StringBuilder returnSB = new StringBuilder("[");
         Node current = sentinel.next;
         for (int i = 0; i < size; i += 1) {
             returnSB.append(current.item.toString());
@@ -80,7 +80,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
             }
             current = current.next;
         }
-        returnSB.append("}");
+        returnSB.append("]");
         return returnSB.toString();
     }
 

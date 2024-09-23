@@ -58,7 +58,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
 
     @Override
     public String toString() {
-        StringBuilder returnSB = new StringBuilder("{");
+        StringBuilder returnSB = new StringBuilder("[");
         for (int i = 0; i < size; i += 1) {
             int x = Math.floorMod(front + 1 + i, items.length);
             returnSB.append(items[x].toString());
@@ -66,7 +66,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
                 returnSB.append(", ");
             }
         }
-        returnSB.append("}");
+        returnSB.append("]");
         return returnSB.toString();
     }
 

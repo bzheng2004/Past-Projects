@@ -364,6 +364,21 @@ public class ArrayDeque61BTest {
         assertThat(lld1).isEqualTo(lld2);
     }
 
+    @Test
+    public void ArrayEqualsLinked() {
+        Deque61B<String> lld1 = new LinkedListDeque61B<>();
+        Deque61B<String> aList1 = new ArrayDeque61B<>();
+
+        lld1.addLast("front");
+        lld1.addLast("middle");
+        lld1.addLast("back");
+
+        aList1.addLast("front");
+        aList1.addLast("middle");
+        aList1.addLast("back");
+
+        assertThat(lld1).isEqualTo(aList1);
+    }
 
 }
 
