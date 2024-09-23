@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ArrayDeque61B<T> implements Deque61B {
+public class ArrayDeque61B<T> implements Deque61B<T> {
     private T[] items;
     private int size;
     private int front;

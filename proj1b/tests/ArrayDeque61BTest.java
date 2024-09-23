@@ -23,11 +23,11 @@ public class ArrayDeque61BTest {
     @Test
     public void addFirstAndAddLastTest() {
         Deque61B<Integer> aList1 = new ArrayDeque61B<>();
-        aList1.addLast(0);   // [0]
-        aList1.addLast(1);   // [0, 1]
-        aList1.addFirst(-1); // [-1, 0, 1]
-        aList1.addLast(2);   // [-1, 0, 1, 2]
-        aList1.addFirst(-2); // [-2, -1, 0, 1, 2]
+        aList1.addLast(0);
+        aList1.addLast(1);
+        aList1.addFirst(-1);
+        aList1.addLast(2);
+        aList1.addFirst(-2);
 
         assertThat(aList1.toList()).containsExactly(-2, -1, 0, 1, 2).inOrder();
     }
