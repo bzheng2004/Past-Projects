@@ -53,6 +53,9 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
         }
         if (o instanceof Deque61B otherSet) {
             for (int i = 0; i < this.size; i++) {
+                if (this.size() != otherSet.size()) {
+                    return false;
+                }
                 if (!this.get(i).equals(otherSet.get(i))) {
                     return false;
                 }

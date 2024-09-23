@@ -40,7 +40,11 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         if (this == o) {
             return true;
         }
+
         if (o instanceof Deque61B otherSet) {
+            if (this.size() != otherSet.size()) {
+                return false;
+            }
             for (int i = 0; i < this.size; i++) {
                 if (!this.get(i).equals(otherSet.get(i))) {
                     return false;
