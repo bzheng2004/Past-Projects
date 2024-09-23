@@ -53,4 +53,13 @@ public class MaxArrayDeque61BTest {
         assertThat(m.max(Comparator.naturalOrder())).isEqualTo(5);
     }
 
+    @Test
+    public void DifferentComp() {
+        MaxArrayDeque61B<String> m = new MaxArrayDeque61B<>(new StringLengthComparator());
+        m.addFirst("");
+        m.addFirst("2");
+        m.addFirst("fury road");
+        assertThat(m.max(Comparator.naturalOrder())).isEqualTo("fury road");
+    }
+
 }
