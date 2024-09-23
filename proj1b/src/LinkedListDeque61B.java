@@ -47,22 +47,15 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (this == other) {
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
         }
-        if (other instanceof LinkedListDeque61B otherSet) {
-            if (this.size != otherSet.size) {
-                return false;
-            }
-            Node node1 = sentinel.next;
-            Node node2 = otherSet.sentinel.next;
-            for (int i = 0; i < size; i++) {
-                if (!node1.item.equals(node2.item)) {
+        if (o instanceof Deque61B otherSet) {
+            for (int i = 0; i < this.size; i++) {
+                if (!this.get(i).equals(otherSet.get(i))) {
                     return false;
                 }
-                node1 = node1.next;
-                node2 = node2.next;
             }
             return true;
         }

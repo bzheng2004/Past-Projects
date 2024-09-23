@@ -36,18 +36,13 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (this == other) {
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
         }
-        if (other instanceof ArrayDeque61B otherSet) {
-            if (this.size != otherSet.size) {
-                return false;
-            }
-            for (int i = 0; i < size; i++) {
-                T item1 = items[Math.floorMod(front + 1 + i, items.length)];
-                T item2 = (T) otherSet.items[Math.floorMod(otherSet.front + 1 + i, otherSet.items.length)];
-                if (!item1.equals(item2)) {
+        if (o instanceof Deque61B otherSet) {
+            for (int i = 0; i < this.size; i++) {
+                if (!this.get(i).equals(otherSet.get(i))) {
                     return false;
                 }
             }

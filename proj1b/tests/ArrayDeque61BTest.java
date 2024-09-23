@@ -366,18 +366,19 @@ public class ArrayDeque61BTest {
 
     @Test
     public void ArrayEqualsLinked() {
-        Deque61B<String> lld1 = new LinkedListDeque61B<>();
-        Deque61B<String> aList1 = new ArrayDeque61B<>();
+        Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
+        Deque61B<Integer> aList1 = new ArrayDeque61B<>();
 
-        lld1.addLast("front");
-        lld1.addLast("middle");
-        lld1.addLast("back");
+        lld1.addLast(1);
+        lld1.addLast(2);
+        lld1.addLast(3);
 
-        aList1.addLast("front");
-        aList1.addLast("middle");
-        aList1.addLast("back");
+        aList1.addLast(1);
+        aList1.addLast(2);
+        aList1.addLast(3);
 
         assertThat(lld1).isEqualTo(aList1);
+        assertThat(aList1).isEqualTo(lld1);
     }
 
 }
