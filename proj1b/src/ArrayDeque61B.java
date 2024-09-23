@@ -132,7 +132,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     }
 
     @Override
-    public Object removeFirst() {
+    public T removeFirst() {
         if (size == 0) {
             return null;
         }
@@ -150,7 +150,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     }
 
     @Override
-    public Object removeLast() {
+    public T removeLast() {
         if (size == 0) {
             return null;
         }
@@ -168,7 +168,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     }
 
     @Override
-    public Object get(int index) {
+    public T get(int index) {
         if (index < 0) {
             return null;
         }
@@ -179,7 +179,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     }
 
     @Override
-    public Object getRecursive(int index) {
+    public T getRecursive(int index) {
         throw new UnsupportedOperationException("No need to implement getRecursive for proj 1b");
     }
 }
