@@ -86,6 +86,29 @@ public class UnionFindTest {
      * of all methods in your implementation.
      */
 
+    @Test
+    public void pathCompression() {
+        UnionFind uf = new UnionFind(6);
+        uf.union(0, 1);
+        uf.union(1, 2);
+        uf.union(2, 3);
+        uf.union(3, 4);
+        assertThat(uf.find(4)).isEqualTo(0);
+        assertThat(uf.find(3)).isEqualTo(0);
+        assertThat(uf.find(2)).isEqualTo(0);
+        assertThat(uf.find(1)).isEqualTo(0);
+    }
+
+    @Test
+    public void sizeOfTest() {
+        UnionFind uf = new UnionFind(6);
+        uf.union(0, 1);
+        uf.union(1, 2);
+        uf.union(2, 3);
+        uf.union(3, 4);
+        assertThat(uf.sizeOf(0)).isEqualTo(5);
+    }
+
 }
 
 

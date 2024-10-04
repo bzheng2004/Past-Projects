@@ -40,10 +40,12 @@ public class UnionFind {
         if (v < 0 || v >= parent.length) {
             throw new IllegalArgumentException("Out of bound index");
         }
-        while (parent[v] >= 0) {
-            v = parent[v];
+        if (parent[v] < 0) {
+            return v;
         }
-        return v;
+        int root = find(parent[v]);
+        parent[v] = root;
+        return root;
     }
 
     /* Connects two items V1 and V2 together by connecting their respective
@@ -60,7 +62,7 @@ public class UnionFind {
             return;
         }
 
-        if (parent[i] < parent[j]) {
+        if (parent[i] <= parent[j]) {
             parent[i] += parent[j];
             parent[j] = i;
         } else {
