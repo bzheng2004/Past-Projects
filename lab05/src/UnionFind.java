@@ -1,29 +1,35 @@
 public class UnionFind {
     // TODO: Instance variables
+    private int[] parent;
 
     /* Creates a UnionFind data structure holding N items. Initially, all
        items are in disjoint sets. */
     public UnionFind(int N) {
         // TODO: YOUR CODE HERE
+        parent = new int[N];
+        for (int i = 0; i < N; i++) {
+            parent[i] = -1;
+        }
     }
 
     /* Returns the size of the set V belongs to. */
     public int sizeOf(int v) {
         // TODO: YOUR CODE HERE
-        return -1;
+        int root = find(v);
+        return -parent[root];
     }
 
     /* Returns the parent of V. If V is the root of a tree, returns the
        negative size of the tree for which V is the root. */
     public int parent(int v) {
         // TODO: YOUR CODE HERE
-        return -1;
+        return parent[v];
     }
 
     /* Returns true if nodes/vertices V1 and V2 are connected. */
     public boolean connected(int v1, int v2) {
         // TODO: YOUR CODE HERE
-        return false;
+        return find(v1) == find(v2);
     }
 
     /* Returns the root of the set V belongs to. Path-compression is employed
@@ -31,7 +37,13 @@ public class UnionFind {
        function, throw an IllegalArgumentException. */
     public int find(int v) {
         // TODO: YOUR CODE HERE
-        return -1;
+        if (v < 0 || v >= parent.length) {
+            throw new IllegalArgumentException("Out of bound index");
+        }
+        while (parent[v] >= 0) {
+            v = parent[v];
+        }
+        return v;
     }
 
     /* Connects two items V1 and V2 together by connecting their respective
@@ -41,6 +53,20 @@ public class UnionFind {
        already connected should not change the structure. */
     public void union(int v1, int v2) {
         // TODO: YOUR CODE HERE
+        int i = find(v1);
+        int j = find(v2);
+
+        if (i == j) {
+            return;
+        }
+
+        if (parent[i] < parent[j]) {
+            parent[i] += parent[j];
+            parent[j] = i;
+        } else {
+            parent[j] += parent[i];
+            parent[i] = j;
+        }
     }
 
 }
