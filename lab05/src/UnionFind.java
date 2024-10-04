@@ -15,20 +15,31 @@ public class UnionFind {
     /* Returns the size of the set V belongs to. */
     public int sizeOf(int v) {
         // TODO: YOUR CODE HERE
-        int root = find(v);
-        return -parent[root];
+        if (v < 0 || v >= parent.length) {
+            throw new IllegalArgumentException("Out of bound index");
+        }
+        return -parent[find(v)];
     }
 
     /* Returns the parent of V. If V is the root of a tree, returns the
        negative size of the tree for which V is the root. */
     public int parent(int v) {
         // TODO: YOUR CODE HERE
+        if (v < 0 || v >= parent.length) {
+            throw new IllegalArgumentException("Out of bound index");
+        }
         return parent[v];
     }
 
     /* Returns true if nodes/vertices V1 and V2 are connected. */
     public boolean connected(int v1, int v2) {
         // TODO: YOUR CODE HERE
+        if (v1 < 0 || v1 >= parent.length) {
+            throw new IllegalArgumentException("Out of bound index");
+        }
+        if (v2 < 0 || v2 >= parent.length) {
+            throw new IllegalArgumentException("Out of bound index");
+        }
         return find(v1) == find(v2);
     }
 
@@ -62,7 +73,7 @@ public class UnionFind {
             return;
         }
 
-        if (parent[i] <= parent[j]) {
+        if (parent[i] < parent[j]) {
             parent[i] += parent[j];
             parent[j] = i;
         } else {

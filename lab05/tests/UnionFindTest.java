@@ -88,15 +88,15 @@ public class UnionFindTest {
 
     @Test
     public void pathCompression() {
-        UnionFind uf = new UnionFind(6);
+        UnionFind uf = new UnionFind(10);
         uf.union(0, 1);
-        uf.union(1, 2);
         uf.union(2, 3);
-        uf.union(3, 4);
-        assertThat(uf.find(4)).isEqualTo(0);
-        assertThat(uf.find(3)).isEqualTo(0);
-        assertThat(uf.find(2)).isEqualTo(0);
-        assertThat(uf.find(1)).isEqualTo(0);
+        uf.union(4, 5);
+        uf.union(6, 7);
+        uf.union(0, 2);
+        uf.union(5, 7);
+        uf.union(7, 3);
+        assertThat(uf.find(0)).isEqualTo(3);
     }
 
     @Test
@@ -107,6 +107,20 @@ public class UnionFindTest {
         uf.union(2, 3);
         uf.union(3, 4);
         assertThat(uf.sizeOf(0)).isEqualTo(5);
+    }
+
+    @Test
+    public void UnionPathCompressionTest() {
+        UnionFind uf = new UnionFind(10);
+        uf.union(0, 1);
+        uf.union(2, 3);
+        uf.union(0, 2);
+        uf.union(4, 5);
+        uf.union(6, 7);
+        uf.union(4, 6);
+        uf.union(0, 4);
+
+        assertThat(uf.parent(0)).isEqualTo(3);
     }
 
 }
