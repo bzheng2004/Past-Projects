@@ -12,6 +12,7 @@ public class Percolation {
 
 
     public Percolation(int N) {
+        exception(N);
         avaliable = new boolean[N][N];
         size = N;
         unionFind = new WeightedQuickUnionUF(N * N + 2);
@@ -19,6 +20,12 @@ public class Percolation {
         open = 0;
         top = N * N;
         bot = N * N + 1;
+    }
+
+    public void exception(int N) {
+        if (N <= 0) {
+            throw new IllegalArgumentException("N is less than or greater to 0");
+        }
     }
 
     public void open(int row, int col) {
