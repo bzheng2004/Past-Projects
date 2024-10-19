@@ -1,5 +1,6 @@
 package ngrams;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -30,15 +31,18 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      */
     public TimeSeries(TimeSeries ts, int startYear, int endYear) {
         super();
-        // TODO: Fill in this constructor.
+        for (Integer y : ts.keySet()) {
+            if (y >= startYear && y <= endYear) {
+                put(y, ts.get(y));
+            }
+        }
     }
 
     /**
      *  Returns all years for this time series in ascending order.
      */
     public List<Integer> years() {
-        // TODO: Fill in this method.
-        return null;
+        return new ArrayList<>(keySet());
     }
 
     /**
@@ -46,8 +50,7 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      *  order of years().
      */
     public List<Double> data() {
-        // TODO: Fill in this method.
-        return null;
+        return new ArrayList<>(values());
     }
 
     /**
@@ -60,8 +63,20 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      * should store the value from the TimeSeries that contains that year.
      */
     public TimeSeries plus(TimeSeries ts) {
-        // TODO: Fill in this method.
-        return null;
+        TimeSeries sum = new TimeSeries();
+        for (Integer y : keySet()) {
+            if (ts.containsKey(y)) {
+                sum.put(y, get(y) + ts.get(y));
+            } else {
+                sum.put(y, get(y));
+            }
+        }
+        for (Integer y : ts.keySet()) {
+            if (!containsKey(y)) {
+                sum.put(y, ts.get(y));
+            }
+        }
+        return sum;
     }
 
     /**
@@ -74,10 +89,10 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      * If TS has a year that is not in this TimeSeries, ignore it.
      */
     public TimeSeries dividedBy(TimeSeries ts) {
-        // TODO: Fill in this method.
-        return null;
+        TimeSeries quotient = new TimeSeries();
+        for (Integer y : keySet()) {
+            quotient.put(y, get(y) / ts.get(y));
+        }
+        return quotient;
     }
-
-    // TODO: Add any private helper methods.
-    // TODO: Remove all TODO comments before submitting.
 }

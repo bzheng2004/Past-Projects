@@ -1,9 +1,10 @@
 package ngrams;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
-import static ngrams.TimeSeries.MAX_YEAR;
-import static ngrams.TimeSeries.MIN_YEAR;
+import edu.princeton.cs.algs4.In;
 
 /**
  * An object that provides utility methods for making queries on the
@@ -16,14 +17,36 @@ import static ngrams.TimeSeries.MIN_YEAR;
  * @author Josh Hug
  */
 public class NGramMap {
-
-    // TODO: Add any necessary static/instance variables.
+    private Map<String, TimeSeries> wordsI;
+    private TimeSeries total;
 
     /**
      * Constructs an NGramMap from WORDSFILENAME and COUNTSFILENAME.
      */
     public NGramMap(String wordsFilename, String countsFilename) {
-        // TODO: Fill in this constructor. See the "NGramMap Tips" section of the spec for help.
+        wordsI = new HashMap<>();
+        total = new TimeSeries();
+
+        In file = new In(wordsFilename);
+        while (file.hasNextLine()) {
+            String[] split = file.readLine().split("\t");
+            String word = split[0];
+            int year = Integer.parseInt(split[1]);
+            double appearance = Double.parseDouble(split[2]);
+            TimeSeries ts = wordsI.get(word);
+            if (ts == null) {
+                ts = new TimeSeries();
+            }
+            ts.put(year, appearance);
+            wordsI.put(word, ts);
+        }
+        In countF = new In(countsFilename);
+        while (countF.hasNextLine()) {
+            String[] split = countF.readLine().split(",");
+            int year = Integer.parseInt(split[0]);
+            double appearance = Double.parseDouble(split[1]);
+            total.put(year, appearance);
+        }
     }
 
     /**
@@ -34,8 +57,10 @@ public class NGramMap {
      * returns an empty TimeSeries.
      */
     public TimeSeries countHistory(String word, int startYear, int endYear) {
-        // TODO: Fill in this method.
-        return null;
+        if (!wordsI.containsKey(word)) {
+            return new TimeSeries();
+        }
+        return new TimeSeries(wordsI.get(word), startYear, endYear);
     }
 
     /**
@@ -45,16 +70,26 @@ public class NGramMap {
      * is not in the data files, returns an empty TimeSeries.
      */
     public TimeSeries countHistory(String word) {
-        // TODO: Fill in this method.
-        return null;
+        if (!wordsI.containsKey(word)) {
+            return new TimeSeries();
+        }
+        TimeSeries base = wordsI.get(word);
+        TimeSeries copy = new TimeSeries();
+        for (int y : base.years()) {
+            copy.put(y, base.get(y));
+        }
+        return copy;
     }
 
     /**
      * Returns a defensive copy of the total number of words recorded per year in all volumes.
      */
     public TimeSeries totalCountHistory() {
-        // TODO: Fill in this method.
-        return null;
+        TimeSeries copy = new TimeSeries();
+        for (int y : total.years()) {
+            copy.put(y, total.get(y));
+        }
+        return copy;
     }
 
     /**
@@ -63,8 +98,21 @@ public class NGramMap {
      * TimeSeries.
      */
     public TimeSeries weightHistory(String word, int startYear, int endYear) {
-        // TODO: Fill in this method.
-        return null;
+        TimeSeries countW = countHistory(word, startYear, endYear);
+        if (countW.isEmpty()) {
+            return new TimeSeries();
+        }
+        TimeSeries totalW = totalCountHistory();
+        TimeSeries relativeFre = new TimeSeries();
+        for (int y = startYear; y <= endYear; y++) {
+            Double counts = countW.get(y);
+            Double totals = totalW.get(y);
+            if (totals != null && totals > 0 && counts != null) {
+                double relativeF = counts / totals;
+                relativeFre.put(y, relativeF);
+            }
+        }
+        return relativeFre;
     }
 
     /**
@@ -73,8 +121,21 @@ public class NGramMap {
      * TimeSeries.
      */
     public TimeSeries weightHistory(String word) {
-        // TODO: Fill in this method.
-        return null;
+        TimeSeries countW = countHistory(word);
+        if (countW.isEmpty()) {
+            return new TimeSeries();
+        }
+        TimeSeries totalW = totalCountHistory();
+        TimeSeries relativeFre = new TimeSeries();
+        for (int y: countW.years()) {
+            double counts = countW.get(y);
+            double totals = totalW.get(y);
+            if (totals > 0) {
+                double relativeF  = counts / totals;
+                relativeFre.put(y, relativeF);
+            }
+        }
+        return relativeFre;
     }
 
     /**
@@ -84,8 +145,21 @@ public class NGramMap {
      */
     public TimeSeries summedWeightHistory(Collection<String> words,
                                           int startYear, int endYear) {
-        // TODO: Fill in this method.
-        return null;
+        TimeSeries summedFreqs = new TimeSeries();
+        for (String w: words) {
+            TimeSeries weightH = weightHistory(w, startYear, endYear);
+            for (int y = startYear; y <= endYear; y++) {
+                Double freq = weightH.get(y);
+                if (freq != null && freq > 0) {
+                    double sum = 0;
+                    if (summedFreqs.get(y) != null) {
+                        sum = summedFreqs.get(y);
+                    }
+                    summedFreqs.put(y, sum + freq);
+                }
+            }
+        }
+        return summedFreqs;
     }
 
     /**
@@ -93,10 +167,20 @@ public class NGramMap {
      * exist in this time frame, ignore it rather than throwing an exception.
      */
     public TimeSeries summedWeightHistory(Collection<String> words) {
-        // TODO: Fill in this method.
-        return null;
+        TimeSeries summedFreqs = new TimeSeries();
+        for (String w: words) {
+            TimeSeries weightH = weightHistory(w);
+            for (int y : weightH.years()) {
+                Double freq = weightH.get(y);
+                if (freq != null && freq > 0) {
+                    double sum = 0;
+                    if (summedFreqs.get(y) != null) {
+                        sum = summedFreqs.get(y);
+                    }
+                    summedFreqs.put(y, sum + freq);
+                }
+            }
+        }
+        return summedFreqs;
     }
-
-    // TODO: Add any private helper methods.
-    // TODO: Remove all TODO comments before submitting.
 }
