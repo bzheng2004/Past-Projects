@@ -1,0 +1,3 @@
+seed:4423
+avatarPosX:33
+avatarPosY:30
